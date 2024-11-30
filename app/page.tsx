@@ -19,17 +19,15 @@ const sections = {
   contact: `Want to know more? Reach out to us at contact@energyfuture.com`
 }
 
-const GlowingBubble = ({ index: _ }: { index: number }) => {
+const GlowingBubble = () => {
   const controls = useAnimation()
   const bubbleRef = useRef<HTMLDivElement>(null)
   
   useEffect(() => {
     const bounds = document.documentElement.getBoundingClientRect()
-    // Start at a random position on screen
     let currentX = Math.random() * bounds.width
     let currentY = Math.random() * bounds.height
 
-    // First make the bubble appear with a scale animation
     controls.start({
       scale: [0, 1],
       left: currentX,
@@ -164,7 +162,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-900 text-gray-300 font-mono flex flex-col relative overflow-hidden">
       {[...Array(6)].map((_, i) => (
-        <GlowingBubble key={`bubble-${i}`} index={i} />
+        <GlowingBubble key={`bubble-${i}`} />
       ))}
       <main className="flex-grow flex items-stretch relative z-10">
         <div className="w-full flex flex-col px-4">
