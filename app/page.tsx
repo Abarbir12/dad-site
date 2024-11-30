@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { motion, AnimatePresence, useAnimation } from 'framer-motion'
 
 interface Message {
@@ -19,7 +19,7 @@ const sections = {
   contact: `Want to know more? Reach out to us at contact@energyfuture.com`
 }
 
-const GlowingBubble = ({ index }: { index: number }) => {
+const GlowingBubble = ({ index: _ }: { index: number }) => {
   const controls = useAnimation()
   const bubbleRef = useRef<HTMLDivElement>(null)
   
@@ -84,7 +84,7 @@ const GlowingBubble = ({ index }: { index: number }) => {
 
       requestAnimationFrame(animate)
     })
-  }, [])
+  }, [controls]) // Add controls to dependency array
 
   return (
     <motion.div
@@ -101,7 +101,7 @@ export default function Home() {
   const [currentCommand, setCurrentCommand] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
-  const validCommands = ['about', 'team', 'contact']
+  const validCommands = useMemo(() => ['about', 'team', 'contact'], [])
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -114,7 +114,7 @@ export default function Home() {
         { type: 'options', content: validCommands }
       ])
     }
-  }, [])
+  }, [messages.length, validCommands])
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -141,7 +141,7 @@ export default function Home() {
 
     window.addEventListener('keydown', handleKeyPress)
     return () => window.removeEventListener('keydown', handleKeyPress)
-  }, [currentCommand, isTyping])
+  }, [currentCommand, isTyping, validCommands])
 
   const handleOptionClick = async (option: string) => {
     setIsTyping(true)

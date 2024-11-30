@@ -50,7 +50,7 @@ export default function Contact() {
             Get in Touch
           </motion.h2>
           <motion.p variants={itemVariants} className="text-xl text-blue-300 mb-4">
-            We'd love to hear from you. Reach out to us for any inquiries or collaborations.
+            We&apos;d love to hear from you. Reach out to us for any inquiries or collaborations.
           </motion.p>
           <motion.a
             href="mailto:contact@energyfuture.com"
@@ -66,4 +66,3 @@ export default function Contact() {
     </section>
   )
 }
-
